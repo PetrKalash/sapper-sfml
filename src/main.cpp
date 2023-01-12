@@ -1,21 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include <array>
-#include <random>
-
-class Sapper
-{
-private:
-    std::array<std::array<int32_t, 10>, 10> m_fill_field;     // игровое поле
-
-public:
-    Sapper()
-    {
-        // Заполняем каждую ячейку на игровом поле случайными числами
-        for (size_t x{}; x < 10; ++x)
-            for (size_t y{}; y < 10; ++y)
-                m_fill_field.at(x).at(y) = std::mt19937(std::random_device {}())() % 9;
-    }
-};
+#include <Sapper.h>
 
 int main(int argc, char *argv[])
 {
