@@ -183,7 +183,7 @@ CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 CMAKE_VERBOSE_MAKEFILE:BOOL=OFF
 
 //The directory containing a CMake configuration file for SFML.
-SFML_DIR:PATH=C:/vcpkg/vcpkg/installed/x64-windows/include/SFML/lib/cmake/SFML
+SFML_DIR:PATH=C:/vcpkg/installed/x64-windows/include/SFML/lib/cmake/SFML
 
 //Path to a file.
 SFML_DOC_DIR:PATH=SFML_DOC_DIR-NOTFOUND

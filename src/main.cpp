@@ -1,23 +1,24 @@
 #include <SFML/Graphics.hpp>
-#include <Sapper.h>
+#include "sapper.h"
 
-int main(int argc, char *argv[])
+int main()
 {
+    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+
     Sapper sapper_game;
-    sapper_game.print();
 
-
-
-
-
-    while (main_window.isOpen()) {
-        
+    while (window.isOpen())
+    {
         sf::Event event;
-        while (main_window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) main_window.close();
-
-            main_window.display();
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
         }
+
+
+        window.display();
     }
+
     return 0;
 }
