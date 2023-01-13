@@ -325,9 +325,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\HUAWEY_mb14\Documents\GitHub\sapper-sfml\include\Sapper.h" />
-    <ClCompile Include="C:\Users\HUAWEY_mb14\Documents\GitHub\sapper-sfml\src\Sapper.cpp" />
+    <ClInclude Include="C:\Users\HUAWEY_mb14\Documents\GitHub\sapper-sfml\include\config.h" />
+    <ClInclude Include="C:\Users\HUAWEY_mb14\Documents\GitHub\sapper-sfml\include\sapper.h" />
     <ClCompile Include="C:\Users\HUAWEY_mb14\Documents\GitHub\sapper-sfml\src\main.cpp" />
+    <ClCompile Include="C:\Users\HUAWEY_mb14\Documents\GitHub\sapper-sfml\src\sapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\HUAWEY_mb14\Documents\GitHub\sapper-sfml\build\ZERO_CHECK.vcxproj">
