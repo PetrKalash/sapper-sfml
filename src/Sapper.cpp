@@ -2,6 +2,9 @@
 
 Sapper::Sapper()
 {
+    m_texture_tiles.loadFromFile("resources//img//tiles.jpg");
+    m_sprite_tiles.setTexture(m_texture_tiles);
+
     // Заполняем каждую ячейку на игровом поле случайными числами
     for (size_t x{}; x < 10; ++x)
         for (size_t y{}; y < 10; ++y)
