@@ -31,7 +31,7 @@ Sapper::Sapper()
             if (!m_logic_field.at(x).at(y)) continue;
 
             // Проверяем вокруг ячейки без мин квадратную область 3x3 на наличие мин
-
+            if (m_logic_field.at(x).at(y))
 
         }
     }
