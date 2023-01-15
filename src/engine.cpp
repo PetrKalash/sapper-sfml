@@ -1,11 +1,10 @@
 #include "engine.h"
-#include <iostream>
 
 Engine::Engine()
 {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    main_window.create(sf::VideoMode(360, 360), "Sapper", sf::Style::Default, settings);
+    main_window.create(sf::VideoMode(320, 320), "Sapper", sf::Style::Default, settings);
 
     m_texture_background.loadFromFile("resources//img//background.jpg");
     m_sprite_backround.setTexture(m_texture_background);
@@ -58,12 +57,24 @@ void Engine::event_processing()
             {
                 for (int32_t x{}; x < logic.size(); ++x) {
                     for (int32_t y{}; y < logic.size(); ++y) {
-                        std::cout << "(" << x << ", " << y << ") = " << logic.at(x).at(y) << "\n";
 
-                        // Если мы нашли мину, открываем ее
-                        if (logic.at(x).at(y) == 0 && x_mouse == x && y_mouse == y) {
-                            m_sapper.replace_fill_sprite(x_mouse, y_mouse, 9);
+                        // Если мы нашли мину, открываем ее и заканчиваем игру
+                        if (logic.at(x_mouse).at(y_mouse) == 9) {
+                            for (int32_t x{}; x < logic.size(); ++x)
+                                for (int32_t y{}; y < logic.size(); ++y)
+                                    m_sapper.replace_fill_sprite(x, y, logic.at(x).at(y));
                         }
+
+                        // Если мы открыли пустую ячеку, открываем ближайшие с ней ячейки
+                        if (logic.at(x_mouse).at(y_mouse) == 0) {
+                            for (int32_t x{}; x < logic.size(); ++x)
+                                for (int32_t y{}; y < logic.size(); ++y)
+                                    // Открываем вокруг нее область до тех пор, пока не откроем вокруг все номера
+                                    if (logic.at(x).at(y) == 0) m_sapper.replace_fill_sprite(x, y, logic.at(x).at(y));
+                        }
+
+                        // Заменяем спрайт внешней ячейки на спрайт внутренней ячейки (открываем ее)
+                        m_sapper.replace_fill_sprite(x_mouse, y_mouse, logic.at(x_mouse).at(y_mouse));
                     }
                 }
             }

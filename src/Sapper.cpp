@@ -1,6 +1,6 @@
 #include "Sapper.h"
 
-Sapper::Sapper()
+Sapper::Sapper() : m_logic_field{}
 {
     // «агружаем изображение игровых €чеек
     m_texture_tiles.loadFromFile("resources//img//tiles.jpg");
@@ -14,25 +14,26 @@ Sapper::Sapper()
     // ѕеребираем все €чейки на игровом поле
     for (int32_t x{}; x < m_fill_field.size(); ++x) {
         for (int32_t y{}; y < m_fill_field.size(); ++y) {
-            // «аполн€ем каждую €чейку случайными числами (внутренн€€ часть). 0 - это мины
-            m_logic_field.at(x).at(y) = std::mt19937(std::random_device{}())() % 12;
-            // ” внешней части все €чейки закрытые
+            // «аполн€ем каждую €чейку случайными числами (внутренн€€ часть). 0 - это мины, 9 - спрайт мин
+            if (std::mt19937(std::random_device {}())() % 6 == 0) m_logic_field.at(x).at(y) = 9;
+            // ” внешней части игрового пол€ (внешн€€ часть) все €чейки закрытые
             m_fill_field.at(x).at(y) = 10;
         }
     }
 
     // ƒл€ каждой клетки присваиваем кол-во мин р€дом с ней (квадрат 3x3)
-    for (int32_t x {}; x < m_fill_field.size(); ++x) {
-        for (int32_t y {}; y < m_fill_field.size(); ++y) {
-
-            int32_t count_mine {};          // кол-во мин р€дом с клеткой
+    for (int32_t x{}; x < m_fill_field.size(); ++x) {
+        for (int32_t y{}; y < m_fill_field.size(); ++y) {
 
             // ≈сли у €чейки есть мина, то ее не провер€ем и переходим к следующей
-            if (!m_logic_field.at(x).at(y)) continue;
+            if (m_logic_field.at(x).at(y) == 9) continue;
 
-            // ѕровер€ем вокруг €чейки без мин квадратную область 3x3 на наличие мин
-            if (m_logic_field.at(x).at(y))
-
+            // ѕровер€ем вокруг €чейки без мины квадратную область 3x3 на наличие мин
+            for (int32_t i{x - 1}; i <= x + 1; ++i)
+                for (int32_t j{y - 1}; j <= y + 1; ++j)
+                    // ≈сли €чейка вокруг квадратной области текущей €чейки не выходит за границы пол€ и имеет мину, прибавл€ем +1
+                    if (i >= 0 && j >= 0 && i < m_logic_field.size() && j < m_logic_field.size() && m_logic_field.at(i).at(j) == 9)
+                        m_logic_field.at(x).at(y)++;
         }
     }
 }
