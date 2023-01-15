@@ -14,12 +14,27 @@ Sapper::Sapper()
     // ѕеребираем все €чейки на игровом поле
     for (int32_t x{}; x < m_fill_field.size(); ++x) {
         for (int32_t y{}; y < m_fill_field.size(); ++y) {
-            // «аполн€ем каждую €чейку на игровом поле случайными числами (внутренн€€ часть)
-            m_logic_field.at(x).at(y) = std::mt19937(std::random_device{}())() % 6;
+            // «аполн€ем каждую €чейку случайными числами (внутренн€€ часть). 0 - это мины
+            m_logic_field.at(x).at(y) = std::mt19937(std::random_device{}())() % 12;
             // ” внешней части все €чейки закрытые
             m_fill_field.at(x).at(y) = 10;
         }
-    }       
+    }
+
+    // ƒл€ каждой клетки присваиваем кол-во мин р€дом с ней (квадрат 3x3)
+    for (int32_t x {}; x < m_fill_field.size(); ++x) {
+        for (int32_t y {}; y < m_fill_field.size(); ++y) {
+
+            int32_t count_mine {};          // кол-во мин р€дом с клеткой
+
+            // ≈сли у €чейки есть мина, то ее не провер€ем и переходим к следующей
+            if (!m_logic_field.at(x).at(y)) continue;
+
+            // ѕровер€ем вокруг €чейки без мин квадратную область 3x3 на наличие мин
+
+
+        }
+    }
 }
 
 void Sapper::replace_fill_sprite(int32_t x_mouse, int32_t y_mouse, int32_t value)

@@ -30,11 +30,12 @@ void Engine::event_processing()
 
     std::array<sf::Sprite, 12> sprite = m_sapper.get_sprite_tiles();            // спрайт ячейки
     std::array<std::array<int32_t, 10>, 10> fill = m_sapper.get_fill_field();   // значение ячейки
-    std::array<std::array<int32_t, 10>, 10> logic = m_sapper.get_logic_field();
+    std::array<std::array<int32_t, 10>, 10> logic = m_sapper.get_logic_field(); // внутренняя часть
 
     sf::Event e;
     while (main_window.pollEvent(e))
     {
+        // Закрытие окна после нажатия на крестик
         if (e.type == sf::Event::Closed) main_window.close();
 
         // Обработка нажатий кнопок мыши
@@ -55,17 +56,15 @@ void Engine::event_processing()
             // Открываем закрытую ячейку левой кнопкой мыши
             if (e.key.code == sf::Mouse::Left)
             {
-                std::cout << x_mouse << "\t" << y_mouse << std::endl;
-
                 for (int32_t x{}; x < logic.size(); ++x) {
                     for (int32_t y{}; y < logic.size(); ++y) {
                         std::cout << "(" << x << ", " << y << ") = " << logic.at(x).at(y) << "\n";
 
+                        // Если мы нашли мину, открываем ее
                         if (logic.at(x).at(y) == 0 && x_mouse == x && y_mouse == y) {
                             m_sapper.replace_fill_sprite(x_mouse, y_mouse, 9);
                         }
                     }
-                    std::cout << "\n";
                 }
             }
         }
@@ -86,13 +85,16 @@ void Engine::draw_window()
     main_window.clear(sf::Color::White);
     main_window.draw(m_sprite_backround);
 
-    // Полная отрисовка игрового поля (внешняя часть)
+    // Полная отрисовка игрового поля
     for (int32_t x{}; x < fill.size(); ++x) {
         for (int32_t y{}; y < fill.size(); ++y) {
+            // Устанавливаем координаты для каждой ячейки
             sprite.at(fill.at(x).at(y)).setPosition(x * 32, y * 32);
+            // Для каждой ячейки отрисовывем свой спрайт
             main_window.draw(sprite.at(fill.at(x).at(y)));
         }
     }
 
+    // Полное отображение поля
     main_window.display();
 }
