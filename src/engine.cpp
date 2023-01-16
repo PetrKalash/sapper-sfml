@@ -73,35 +73,31 @@ void Engine::sapper_game(Mouse mouse_click)
                     for (int32_t y{}; y < logic.size(); ++y)
                         m_sapper.replace_fill_sprite(x, y, logic.at(x).at(y));
             }
-            
-            // Проверяем только открытую клетку
-            std::array<std::array<bool, 20>, 20> check_open{false};
 
-            // Открываем все пустые ячейки и рядом прилегающие к ним числа
+            // Если первая ячейка закрытая и пустая, начинаем открывать все близлежащие пустые и прилегающие числа
             if (logic.at(x_mouse).at(y_mouse) == 0 && fill.at(x_mouse).at(y_mouse) == 10) 
             {
+                // Проверяем только открытую клетку
+                std::array<std::array<bool, 20>, 20> check_open{false};
                 // Самая первая пустая ячейка будет открытой
                 check_open.at(x_mouse).at(y_mouse) = true;
 
                 // Задаем границы проверяемой области - все игровое поле
-                for (int32_t square_cells {0}; square_cells < fill.size(); ++square_cells)
+                for (int32_t square_cells{0}; square_cells < fill.size(); ++square_cells)
 
                     // Перебираем все ячейки на игровом поле до тех пор, пока не откроем все прилегающие рядом пустые
                     for (int32_t x {x_mouse - square_cells}; x <= x_mouse + square_cells; ++x)
                         for (int32_t y {y_mouse - square_cells}; y <= y_mouse + square_cells; ++y)
 
                             // Проверка на выход за границы уже ближайших ячеек (также они должны быть пустыми и открытыми)
-                            if (m_sapper.check_cell(x, y) && logic.at(x).at(y) == 0 && check_open.at(x).at(y)) 
-                            {
+                            if (m_sapper.check_cell(x, y) && logic.at(x).at(y) == 0 && check_open.at(x).at(y)) {
                                 // Открываем вокруг выбранной ячейки квадрат 3x3
                                 for (int32_t i {x - 1}; i <= x + 1; ++i)
                                     for (int32_t j {y - 1}; j <= y + 1; ++j)
                                         // Проверка, что ячейка не выходит за границы игрового поля
                                         if (m_sapper.check_cell(i, j)) {
-
                                             // Не проверяем те ячейки, что уже открыты
                                             if (check_open.at(i).at(j) == true) continue;
-
                                             check_open.at(i).at(j) = true;
                                             // Открываем все ячейки вокруг пустой клетки
                                             m_sapper.replace_fill_sprite(i, j, logic.at(i).at(j));
