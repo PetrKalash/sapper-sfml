@@ -33,7 +33,7 @@ void Engine::event_processing()
             // ќткрываем или закрываем флажок при нажатии правой кнопкой мыши
             if (e.key.code == sf::Mouse::Right) sapper_game(Mouse::RIGHT_CLICK);
             // ќткрываем закрытую €чейку левой кнопкой мыши
-            if (e.key.code == sf::Mouse::Left) sapper_game(Mouse::LEFT_CLICK);
+            if (e.key.code == sf::Mouse::Left)  sapper_game(Mouse::LEFT_CLICK);
         }
     }
 }
@@ -72,43 +72,41 @@ void Engine::sapper_game(Mouse mouse_click)
                 for (int32_t x{}; x < logic.size(); ++x)
                     for (int32_t y{}; y < logic.size(); ++y)
                         m_sapper.replace_fill_sprite(x, y, logic.at(x).at(y));
-            } 
+            }
             
             // ѕровер€ем только открытую клетку
-            std::array<std::array<bool, 20>, 20> check_open{};
+            std::array<std::array<bool, 20>, 20> check_open{false};
 
-            int32_t square_cells{1};
-            int32_t count{0};
+            // ќткрываем все пустые €чейки и р€дом прилегающие к ним числа
+            if (logic.at(x_mouse).at(y_mouse) == 0 && fill.at(x_mouse).at(y_mouse) == 10) 
+            {
+                // —ама€ перва€ пуста€ €чейка будет открытой
+                check_open.at(x_mouse).at(y_mouse) = true;
 
-            if (logic.at(x_mouse).at(y_mouse) == 0) {
-                // ѕеребираем до тех пор, пока не пройдемс€ по всему полю
-                while (square_cells < logic.size())
-                {
+                // «адаем границы провер€емой области - все игровое поле
+                for (int32_t square_cells {0}; square_cells < fill.size(); ++square_cells)
+
                     // ѕеребираем все €чейки на игровом поле до тех пор, пока не откроем все прилегающие р€дом пустые
-                    for (int32_t x {x_mouse - square_cells}; x <= x_mouse + square_cells; ++x) {
-                        for (int32_t y {y_mouse - square_cells}; y <= y_mouse + square_cells; ++y) {
+                    for (int32_t x {x_mouse - square_cells}; x <= x_mouse + square_cells; ++x)
+                        for (int32_t y {y_mouse - square_cells}; y <= y_mouse + square_cells; ++y)
 
-                            // ѕроверка на выход за границы
-                            if (x >= 0 && y >= 0 && x < logic.size() && y < logic.size()) {
-                                // ≈сли открыли пустую клетку, открываем ближайшие пустые до тех пор, пока вокруг не будут открыты числа
-                                if (logic.at(x).at(y) == 0 && (check_open.at(x).at(y) || count == 0)) {
+                            // ѕроверка на выход за границы уже ближайших €чеек (также они должны быть пустыми и открытыми)
+                            if (m_sapper.check_cell(x, y) && logic.at(x).at(y) == 0 && check_open.at(x).at(y)) 
+                            {
+                                // ќткрываем вокруг выбранной €чейки квадрат 3x3
+                                for (int32_t i {x - 1}; i <= x + 1; ++i)
+                                    for (int32_t j {y - 1}; j <= y + 1; ++j)
+                                        // ѕроверка, что €чейка не выходит за границы игрового пол€
+                                        if (m_sapper.check_cell(i, j)) {
 
-                                    count++;
-                                    // ќткрываем вокруг выбранной €чейки квадрат 3x3
-                                    for (int32_t i {x - 1}; i <= x + 1; ++i)
-                                        for (int32_t j {y - 1}; j <= y + 1; ++j)
-                                            // ѕроверка, что €чейка не выходит за границы игрового пол€
-                                            if (i >= 0 && j >= 0 && i < logic.size() && j < logic.size()) {
-                                                check_open.at(i).at(j) = true;
-                                                // ќткрываем все €чейки вокруг пустой клетки
-                                                m_sapper.replace_fill_sprite(i, j, logic.at(i).at(j));
-                                            }
-                                }
+                                            // Ќе провер€ем те €чейки, что уже открыты
+                                            if (check_open.at(i).at(j) == true) continue;
+
+                                            check_open.at(i).at(j) = true;
+                                            // ќткрываем все €чейки вокруг пустой клетки
+                                            m_sapper.replace_fill_sprite(i, j, logic.at(i).at(j));
+                                        }
                             }
-                        }
-                    }
-                    square_cells++;
-                }
             } break;
         }
         default: break;

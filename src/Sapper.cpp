@@ -15,7 +15,7 @@ Sapper::Sapper() : m_logic_field{}
     for (int32_t x{}; x < m_fill_field.size(); ++x) {
         for (int32_t y{}; y < m_fill_field.size(); ++y) {
             // «аполн€ем каждую €чейку случайными числами (внутренн€€ часть). 0 - это мины, 9 - спрайт мин
-            if (std::mt19937(std::random_device {}())() % 8 == 0) m_logic_field.at(x).at(y) = 9;
+            if (std::mt19937(std::random_device {}())() % 6 == 0) m_logic_field.at(x).at(y) = 9;
             // ” внешней части игрового пол€ (внешн€€ часть) все €чейки закрытые
             m_fill_field.at(x).at(y) = 10;
         }
@@ -32,10 +32,15 @@ Sapper::Sapper() : m_logic_field{}
             for (int32_t i{x - 1}; i <= x + 1; ++i)
                 for (int32_t j{y - 1}; j <= y + 1; ++j)
                     // ≈сли €чейка вокруг квадратной области текущей €чейки не выходит за границы пол€ и имеет мину, прибавл€ем +1
-                    if (i >= 0 && j >= 0 && i < m_logic_field.size() && j < m_logic_field.size() && m_logic_field.at(i).at(j) == 9)
-                        m_logic_field.at(x).at(y)++;
+                    if (check_cell(i, j) && m_logic_field.at(i).at(j) == 9) m_logic_field.at(x).at(y)++;
         }
     }
+}
+
+bool Sapper::check_cell(int32_t &cell_1, int32_t &cell_2) const
+{
+    if (cell_1 >= 0 && cell_2 >= 0 && cell_1 < m_logic_field.size() && cell_2 < m_logic_field.size()) return true;
+    else return false;
 }
 
 void Sapper::replace_fill_sprite(int32_t x_mouse, int32_t y_mouse, int32_t value)
