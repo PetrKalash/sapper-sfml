@@ -15,7 +15,7 @@ Sapper::Sapper() : m_logic_field{}
     for (int32_t x{}; x < m_fill_field.size(); ++x) {
         for (int32_t y{}; y < m_fill_field.size(); ++y) {
             // «аполн€ем каждую €чейку случайными числами (внутренн€€ часть). 0 - это мины, 9 - спрайт мин
-            if (std::mt19937(std::random_device {}())() % 6 == 0) m_logic_field.at(x).at(y) = 9;
+            if (std::mt19937(std::random_device {}())() % 8 == 0) m_logic_field.at(x).at(y) = 9;
             // ” внешней части игрового пол€ (внешн€€ часть) все €чейки закрытые
             m_fill_field.at(x).at(y) = 10;
         }
@@ -45,12 +45,12 @@ void Sapper::replace_fill_sprite(int32_t x_mouse, int32_t y_mouse, int32_t value
             if (x_mouse == x && y_mouse == y) m_fill_field.at(x).at(y) = value;
 }
 
-std::array<std::array<int32_t, 10>, 10> Sapper::get_fill_field() const
+std::array<std::array<int32_t, 20>, 20> Sapper::get_fill_field() const
 {
     return m_fill_field;
 }
 
-std::array<std::array<int32_t, 10>, 10> Sapper::get_logic_field() const
+std::array<std::array<int32_t, 20>, 20> Sapper::get_logic_field() const
 {
     return m_logic_field;
 }
