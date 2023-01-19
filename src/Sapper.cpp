@@ -2,7 +2,7 @@
 
 Sapper::Sapper() : m_logic_field{}
 {
-    // Загружаем изображение игровых ячеек
+
     m_texture_tiles.loadFromFile("resources//img//tiles.jpg");
 
     // Вырезаем отдельно каждую ячейку у текстуры
