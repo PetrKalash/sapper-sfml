@@ -1,3 +1,0 @@
-C:/Users/HUAWEY_mb14/Documents/GitHub/sapper-sfml/build/CMakeFiles/Sapper.dir
-C:/Users/HUAWEY_mb14/Documents/GitHub/sapper-sfml/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/HUAWEY_mb14/Documents/GitHub/sapper-sfml/build/CMakeFiles/ZERO_CHECK.dir
