@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <SFML/Graphics.hpp>
 #include <array>
 #include <random>
@@ -6,24 +6,24 @@
 class Sapper
 {
 protected:
-    sf::Texture m_texture_tiles;                                // общая текстура ячеек
-    std::array<sf::Sprite, 12> m_sprite_tiles;                  // спрайты игровых ячеек
+    sf::Texture m_texture_tiles;                                // РѕР±С‰Р°СЏ С‚РµРєСЃС‚СѓСЂР° СЏС‡РµРµРє
+    std::array<sf::Sprite, 12> m_sprite_tiles;                  // СЃРїСЂР°Р№С‚С‹ РёРіСЂРѕРІС‹С… СЏС‡РµРµРє
 
 private:
-    std::array<std::array<int32_t, 20>, 20> m_logic_field;        // игровая логика поля
-    std::array<std::array<int32_t, 20>, 20> m_fill_field;         // сгенерированное поле
+    std::array<std::array<int32_t, 20>, 20> m_logic_field;        // РёРіСЂРѕРІР°СЏ Р»РѕРіРёРєР° РїРѕР»СЏ
+    std::array<std::array<int32_t, 20>, 20> m_fill_field;         // СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅРЅРѕРµ РїРѕР»Рµ
 
 public:
     Sapper();
-    // Замена ячейки новым переданным значением спрайта после клика мыши
+    // Р—Р°РјРµРЅР° СЏС‡РµР№РєРё РЅРѕРІС‹Рј РїРµСЂРµРґР°РЅРЅС‹Рј Р·РЅР°С‡РµРЅРёРµРј СЃРїСЂР°Р№С‚Р° РїРѕСЃР»Рµ РєР»РёРєР° РјС‹С€Рё
     void replace_fill_sprite(int32_t x_mouse, int32_t y_mouse, int32_t value);
-    // Проверка, что ячейка не выходит за пределы игрового поля
+    // РџСЂРѕРІРµСЂРєР°, С‡С‚Рѕ СЏС‡РµР№РєР° РЅРµ РІС‹С…РѕРґРёС‚ Р·Р° РїСЂРµРґРµР»С‹ РёРіСЂРѕРІРѕРіРѕ РїРѕР»СЏ
     bool check_cell(int32_t &cell_1, int32_t &cell_2) const;
 
-    // Возвращение числа внешней ячейки
+    // Р’РѕР·РІСЂР°С‰РµРЅРёРµ С‡РёСЃР»Р° РІРЅРµС€РЅРµР№ СЏС‡РµР№РєРё
     std::array<std::array<int32_t, 20>, 20> get_fill_field() const;
-    // Возвращение числа внутренней ячейки
+    // Р’РѕР·РІСЂР°С‰РµРЅРёРµ С‡РёСЃР»Р° РІРЅСѓС‚СЂРµРЅРЅРµР№ СЏС‡РµР№РєРё
     std::array<std::array<int32_t, 20>, 20> get_logic_field() const;
-    // Возвращение спрайта ячейки
+    // Р’РѕР·РІСЂР°С‰РµРЅРёРµ СЃРїСЂР°Р№С‚Р° СЏС‡РµР№РєРё
     std::array<sf::Sprite, 12> get_sprite_tiles() const;
 };
