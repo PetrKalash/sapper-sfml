@@ -1,8 +1,8 @@
-#include "engine.h"
+п»ї#include "engine.h"
 
 int main(int argc, char *argv[])
 {
-    // Запуск программы
+    // Р—Р°РїСѓСЃРє РїСЂРѕРіСЂР°РјРјС‹
     Engine engine;
     engine.start_game();
 
