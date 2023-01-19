@@ -32,6 +32,3 @@
 
 # Ignore the build and lib dirs
 build/
-!build/README
-lib/*
-!lib/README
