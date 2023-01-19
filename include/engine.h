@@ -1,36 +1,36 @@
-#pragma once
+п»ї#pragma once
 #include <SFML/Graphics.hpp>
 #include "sapper.h"
 
 class Engine
 {
 public:
-	// Обработка нажатий клавиш мыши
+	// РћР±СЂР°Р±РѕС‚РєР° РЅР°Р¶Р°С‚РёР№ РєР»Р°РІРёС€ РјС‹С€Рё
 	enum class Mouse
 	{
-		LEFT_CLICK,						// левая кнопка мыши
-		RIGHT_CLICK,					// правая кнопка мыши
-		MAX_MOUSE_VALUES				// максимальное значение
+		LEFT_CLICK,						// Р»РµРІР°СЏ РєРЅРѕРїРєР° РјС‹С€Рё
+		RIGHT_CLICK,					// РїСЂР°РІР°СЏ РєРЅРѕРїРєР° РјС‹С€Рё
+		MAX_MOUSE_VALUES				// РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ
 	};
 
 protected:
-	sf::Texture m_texture_background;   // текстура заднего фона сапера
-	sf::Sprite m_sprite_backround;		// спрайт заднего фона сапера
+	sf::Texture m_texture_background;   // С‚РµРєСЃС‚СѓСЂР° Р·Р°РґРЅРµРіРѕ С„РѕРЅР° СЃР°РїРµСЂР°
+	sf::Sprite m_sprite_backround;		// СЃРїСЂР°Р№С‚ Р·Р°РґРЅРµРіРѕ С„РѕРЅР° СЃР°РїРµСЂР°
 
 private:
-	sf::RenderWindow main_window;		// главное окно
-	Sapper m_sapper;					// экземпляр сапера
+	sf::RenderWindow main_window;		// РіР»Р°РІРЅРѕРµ РѕРєРЅРѕ
+	Sapper m_sapper;					// СЌРєР·РµРјРїР»СЏСЂ СЃР°РїРµСЂР°
 
-	// Обработка событий
+	// РћР±СЂР°Р±РѕС‚РєР° СЃРѕР±С‹С‚РёР№
 	void event_processing();
-	// Логика игры
+	// Р›РѕРіРёРєР° РёРіСЂС‹
 	void sapper_game(Mouse mouse_click);
-	// Отрисовка окна
+	// РћС‚СЂРёСЃРѕРІРєР° РѕРєРЅР°
 	void draw_window();
 
 public:
 	Engine();
 
-	// Запуск программы
+	// Р—Р°РїСѓСЃРє РїСЂРѕРіСЂР°РјРјС‹
 	void start_game();
 };
